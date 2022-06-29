@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:signup_demo/service/favorites_services.dart';
 import '../../models/book_model.dart';
+import '../../network/network_local/shared_pref.dart';
 import '../../service/book_service.dart';
 
 class BooksNotifier extends ChangeNotifier{
@@ -11,10 +13,15 @@ class BooksNotifier extends ChangeNotifier{
   Map bookCategory = {};
   BookModel? bookListById = BookModel();
 
+
   getBooks()async
   {
+    Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
       await BookService.getBooks().then((value) {
         bookList = BookModel.getAllBooksFromJson(value.body);
+      });
+      await FavoritesServices.getFavorites(logInInfo['studentId']).then((value) =>{
+
       });
       notifyListeners();
 

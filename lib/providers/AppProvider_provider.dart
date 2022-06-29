@@ -3,9 +3,8 @@ import 'package:signup_demo/network/network_local/shared_pref.dart';
 import 'package:signup_demo/service/book_service.dart';
 import '../models/book_model.dart';
 import '../pages/app_screens/categories_screen.dart';
-import '../pages/app_screens/favorites.dart';
-import '../pages/app_screens/home_screen.dart';
-import '../pages/app_screens/settings.dart';
+import '../pages/app_screens/favorites_screen.dart';
+import '../pages/app_screens/books_screen.dart';
 
 
 class AppProvider extends ChangeNotifier {

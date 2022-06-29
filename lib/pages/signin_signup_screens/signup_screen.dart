@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:signup_demo/pages/signin/signup_screens/signup_confirm_page.dart';
+import 'package:signup_demo/pages/signin_signup_screens/signup_confirm_page.dart';
 import 'package:signup_demo/providers/notifiers/Student_notifier.dart';
-import '../../../component/local/local_com.dart';
+import '../../component/local/local_com.dart';
 import 'package:string_validator/string_validator.dart';
 import 'login_screen.dart';
 
@@ -55,6 +55,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         'Hello',
                         style: GoogleFonts.robotoMono(
                           fontSize: 50.0,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         )
                       ),

@@ -56,7 +56,7 @@ class _BooksFromSubCategoryState extends State<BooksFromSubCategory> {
           crossAxisCount: 2,
           crossAxisSpacing: 1,
           mainAxisSpacing: 1,
-          childAspectRatio: 1 / 1.03,
+          childAspectRatio: 1 / 1.04,
           children: List.generate(books.bookListBySubID.length,
                   (index) =>bookItemBuilder(
                       context,

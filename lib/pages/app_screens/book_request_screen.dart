@@ -120,16 +120,29 @@ class BookRequestScreen extends StatelessWidget {
                     {
                       request.postRequest(
                         bookId: model.bookId,
-                        studentId: 1,
+                        studentId: info['studentId'],
+                        context: context
                       ).then((value)
                       {
-                        book.getBooks().then((value){
-                          book.getBooks();
-                          Navigator.pop(context);
-                          SnackBar snackBar =  SnackBar(content: Text('${model.title} Requested Successfully'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        });
-                      });
+                        if(value.body == 'Student already requested this book')
+                          {
+                            SnackBar snackBar =  const SnackBar(
+                                content: Text(
+                                    'Already Requested'
+                                )
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          }
+                        else {
+                          book.getBooks().then((value) {
+                            book.getBooks();
+                            Navigator.pop(context);
+                            SnackBar snackBar = SnackBar(content: Text(
+                                '${model.title} Requested Successfully'));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                snackBar);
+                          });
+                        } });
                     }
                   else
                   {

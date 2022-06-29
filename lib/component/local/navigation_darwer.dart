@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:signup_demo/network/network_local/shared_pref.dart';
-import '../../pages/signin/signup_screens/login_screen.dart';
+import '../../pages/signin_signup_screens/login_screen.dart';
 import '../../providers/AppProvider_provider.dart';
 import '../../providers/theme_provider.dart';
 
@@ -57,44 +57,11 @@ class NavigationDrawer extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
-              const Spacer(),
-              Text('Theme',
-                  style: GoogleFonts.robotoMono(),
-              ),
-              const Spacer(
-                flex: 3,
-              ),
-              ToggleButtons(
-                fillColor: Colors.grey,
-                borderColor: Theme.of(context).colorScheme.onSecondary,
-                borderWidth: 3,
-                borderRadius: BorderRadius.circular(50),
-                selectedBorderColor: Theme.of(context).colorScheme.onSecondary,
-                children: [
-                  Icon(Icons.brightness_5,
-                      color: Theme.of(context).colorScheme.onSecondary),
-                  Icon(
-                    Icons.dark_mode,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
-                ],
-                isSelected: p.isSelected,
-                onPressed: (index)async {
-                  p.toggleChange(index);
-                  if(index == 1)
-                  {
-                    theme.changeThemeMode();
-                  }
-                  else
-                  {
-                    theme.changeThemeMode();
-                  }
-                },
-              ),
-              const Spacer()
+              Text(
+                  loggedUserinfo['address']
+              )
             ],
           ),
           const Spacer(),
@@ -103,7 +70,6 @@ class NavigationDrawer extends StatelessWidget {
             child: Container(
               height: 50,
               width: double.infinity,
-
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.circular(15)

@@ -41,14 +41,20 @@ Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
   Widget build(BuildContext context) {
     RequestNotifier request = Provider.of<RequestNotifier>(context);
     BooksNotifier book = Provider.of<BooksNotifier>(context);
-
     return Scaffold(
         appBar: AppBar(
           title: const Text('Requests'),
         ),
-        body: ListView.separated(
+        body:request.requestsByNatId.isEmpty?Center(
+          child: Text(
+              'You Have No Requests Yet',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary
+            ),
+          ),
+        ):ListView.separated(
             itemBuilder: (context, index) {
-              return ConditionalBuilder(
+               return ConditionalBuilder(
                 condition: request.requestsByNatId.isEmpty,
                 builder: (context)
                 {

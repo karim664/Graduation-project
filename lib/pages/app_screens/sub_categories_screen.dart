@@ -4,7 +4,7 @@ import 'package:signup_demo/models/categories_model.dart';
 import 'package:signup_demo/models/subcategory_model.dart';
 import 'package:signup_demo/providers/notifiers/subcategory_notifier.dart';
 
-import 'books_from_sub.dart';
+import 'books_from_sub_screen.dart';
 
 class SubScreen extends StatefulWidget {
   CategoryModel categoryModel ;
@@ -88,11 +88,10 @@ class _SubScreenState extends State<SubScreen> {
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            gradient: const LinearGradient(colors: [
-              Color(0xff005F57),
-              Color(0xff018A82),
-              Color(0xff00B292),
-              Color(0xff003E21)
+            gradient:  LinearGradient(colors: [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.onSecondary,
+              Theme.of(context).colorScheme.secondary,
             ], begin: Alignment.topLeft),
           ),
           child: Row(

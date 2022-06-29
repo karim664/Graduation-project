@@ -3,7 +3,7 @@ import 'package:signup_demo/models/categories_model.dart';
 
 class CategoryService{
  static List<CategoryModel> category =[];
-  CategoryModel catmodel = CategoryModel();
+  CategoryModel catModel = CategoryModel();
 
  static Future<http.Response> getCategory()async
   {

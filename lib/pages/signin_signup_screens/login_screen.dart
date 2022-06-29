@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:signup_demo/models/student_model.dart';
-import 'package:signup_demo/pages/signin/signup_screens/signup_screen.dart';
+import 'package:signup_demo/pages/signin_signup_screens/signup_screen.dart';
 import 'package:signup_demo/providers/notifiers/login_notifier.dart';
 import 'package:signup_demo/service/login_service.dart';
 import 'package:string_validator/string_validator.dart';
-import '../../../component/local/local_com.dart';
-import '../../app_screens/main_page.dart';
+import '../../component/local/local_com.dart';
+import '../app_screens/main_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -51,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Welcome Back',
                         style: TextStyle(
                             fontSize: 40.0,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'CODE Bold'),
                       ),
@@ -125,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 }
                               },
-                              title: 'Sing in'),
+                              title: 'Sign in'),
                         ])
                       ),
                       const SizedBox(

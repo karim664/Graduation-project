@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:signup_demo/pages/app_screens/requests_screen.dart';
 import '../../component/local/navigation_darwer.dart';
 import '../../providers/AppProvider_provider.dart';
+import '../../providers/theme_provider.dart';
 
 class MainPage extends StatelessWidget {
 
@@ -11,6 +12,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var p = Provider.of<AppProvider>(context,listen: true);
+    ThemeProvider theme = Provider.of<ThemeProvider>(context, listen: true);
     return WillPopScope(
       onWillPop: ()async => false,
       child: Scaffold(
@@ -30,7 +32,14 @@ class MainPage extends StatelessWidget {
                   ),
               );
             },
-                icon: const Icon(Icons.request_page))
+                icon: const Icon(Icons.request_page)),
+            IconButton(
+                onPressed: ()
+                {
+                  theme.changeThemeMode();
+                },
+                icon: const Icon(Icons.brightness_medium_outlined)
+            )
           ],
         ),
         body: p.pages[p.currentIndex],

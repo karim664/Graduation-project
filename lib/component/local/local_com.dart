@@ -23,7 +23,9 @@ Widget defaultFormField({
         onFieldSubmitted: sub,
         validator: vali,
         decoration: InputDecoration(
-
+          errorStyle: TextStyle(
+            color: Colors.white
+          ),
           filled: true,
           focusColor: Colors.black,
           fillColor: Colors.white,

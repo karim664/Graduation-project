@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:signup_demo/network/network_local/shared_pref.dart';
-import 'package:signup_demo/pages/signin/signup_screens/login_screen.dart';
+import 'package:signup_demo/pages/signin_signup_screens/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
@@ -110,7 +110,7 @@ class OnBoardingScreen extends StatelessWidget {
                             curve: Curves.decelerate);
                       }
                   },
-                  child: const Icon(Icons.arrow_forward_ios, color: Colors.red,),
+                  child:  Icon(Icons.arrow_forward_ios, color: Theme.of(context).colorScheme.onSecondary,),
                 )
               ],
             ),
@@ -124,7 +124,8 @@ class OnBoardingScreen extends StatelessWidget {
   {
     return Column(
       children:  [
-         Expanded(
+         Container(
+           height: 580,
            child: Image(image: AssetImage(
               model.image,
         ),fit: BoxFit.cover),
@@ -132,11 +133,13 @@ class OnBoardingScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(25.0),
           child:Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                model.title ,
                 style: GoogleFonts.robotoMono(
+                  color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.bold
                 ),
@@ -148,7 +151,7 @@ class OnBoardingScreen extends StatelessWidget {
                 model.body,
                 style: GoogleFonts.robotoMono(
                     fontSize: 16,
-                    color: Colors.grey[700]
+                  color: Color(0xffd8e6db),
                 ),
               ),
               const SizedBox(

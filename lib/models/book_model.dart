@@ -8,6 +8,7 @@ class BookModel{
   String? subCategoryName;
   List<dynamic>? authorsNames;
   bool isFav = false;
+  List<dynamic>? studentFavorites;
 
   BookModel(
       {this.bookId,
@@ -15,7 +16,8 @@ class BookModel{
       this.availableQuantity,
       this.publishedYear,
       this.subCategoryName,
-      this.authorsNames});
+      this.authorsNames,
+      this.studentFavorites});
 
   BookModel.withId(
       {
@@ -24,7 +26,8 @@ class BookModel{
        required this.availableQuantity,
        required this.publishedYear,
        required this.subCategoryName,
-       required this.authorsNames});
+       required this.authorsNames,
+      });
 
 
 
@@ -35,6 +38,8 @@ class BookModel{
     subCategoryName = map['subCategoryName'];
     publishedYear = map['publishedYear'];
     authorsNames = map['authorsNames'];
+    studentFavorites = map['studentFavorites'];
+
   }
 
   static List<BookModel> getAllBooksFromJson(String body) {

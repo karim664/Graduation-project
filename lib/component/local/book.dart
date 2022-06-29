@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:signup_demo/models/book_model.dart';
 import 'package:signup_demo/network/network_local/shared_pref.dart';
-import 'package:signup_demo/providers/AppProvider_provider.dart';
-import '../../pages/app_screens/book_screen.dart';
+import 'package:signup_demo/providers/notifiers/favorites_notifier.dart';
+import '../../pages/app_screens/book_request_screen.dart';
 
 
 
@@ -12,10 +13,9 @@ Widget bookItemBuilder(context, BookModel model, index,) {
 
   var theme = Theme.of(context).textTheme.bodyText1;
   var colorTheme = Theme.of(context).colorScheme;
-  AppProvider p = Provider.of<AppProvider>(context);
+  FavoritesNotifier favoriteNotifier = Provider.of<FavoritesNotifier>(context, listen: true);
 
-
-
+  Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
     return GestureDetector(
       onTap:() => Navigator.push(context,
           MaterialPageRoute(builder: (context) =>  BookRequestScreen(model: model,))),
@@ -68,21 +68,26 @@ Widget bookItemBuilder(context, BookModel model, index,) {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        RichText(
-                            text: model.availableQuantity != 0
-                                ? TextSpan(
-                                style:  TextStyle(
-                                    color: colorTheme.onPrimary,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                                text:
-                                'Available ${model.availableQuantity.toString()}')
-                                : const TextSpan(
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                                text: 'Not Available')),
+                        SizedBox(
+                          width: 100,
+                          child: RichText(
+                              text: model.availableQuantity != 0
+                                  ? TextSpan(
+
+                                  style:  TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                      color: colorTheme.onPrimary,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  text:
+                                  'Available ${model.availableQuantity.toString()}')
+                                  : const TextSpan(
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  text: 'Not Available')),
+                        ),
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(2.0),
@@ -92,25 +97,27 @@ Widget bookItemBuilder(context, BookModel model, index,) {
                               splashColor: Colors.red,
                               splashRadius: 20,
                               onPressed: () {
-                                model.isFav = !model.isFav ;
-                                if (model.isFav) {
-                                  p.addToFavorites(model);
-                                } else {
-                                  SharedPref.setBoolean('favs', true);
-                                  p.removeFromFavorites(model);
+                                if(model.studentFavorites!.contains(logInInfo['studentId'])){
+                                  print('removed');
+                                favoriteNotifier.removeFromFavorites(logInInfo['studentId'], model.bookId! , context);
+                                }else {
+                                  print('added');
+                                  favoriteNotifier.addToFavorites(logInInfo['studentId'], model.bookId! , context);
                                 }
-                                SnackBar snackBar = SnackBar(
-                                  content: Text(model.isFav == true
-                                      ? 'Added to favorites'
-                                      : 'Removed from favorites'),
-                                  duration: const Duration(milliseconds: 500) ,
+
+                               SnackBar snackBar = SnackBar(
+                                  content: Text(model.studentFavorites!.contains(logInInfo['studentId'])
+                                      ? 'Removed from favorites'
+                                      : 'Added to favorites',
+                                  ),
+                                  duration: const Duration(milliseconds: 1000) ,
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
                               },
                               icon: Icon(Icons.favorite,
                                   color:
-                                  model.isFav  ? Colors.red : Colors.white70),
+                                  model.studentFavorites!.contains(logInInfo['studentId']) ? Colors.red : Colors.white70),
                             ),
                           ),
                         ),
