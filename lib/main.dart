@@ -22,15 +22,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => AppProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ThemeProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CategoryNotifier(),
-        ),
+        ChangeNotifierProvider(create: (context) => AppProvider(),),
+        ChangeNotifierProvider(create: (context) => ThemeProvider(),),
+        ChangeNotifierProvider(create: (context) => CategoryNotifier(),),
         ChangeNotifierProvider(create: (context) => BooksNotifier()),
         ChangeNotifierProvider(create: (context) => LogInNotifier()),
         ChangeNotifierProvider(create: (context) => RequestNotifier()),
