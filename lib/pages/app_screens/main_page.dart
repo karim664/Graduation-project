@@ -11,8 +11,9 @@ class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var p = Provider.of<AppProvider>(context,listen: true);
+    AppProvider p = Provider.of<AppProvider>(context,listen: true);
     ThemeProvider theme = Provider.of<ThemeProvider>(context, listen: true);
+
     return WillPopScope(
       onWillPop: ()async => false,
       child: Scaffold(
@@ -32,14 +33,7 @@ class MainPage extends StatelessWidget {
                   ),
               );
             },
-                icon: const Icon(Icons.request_page)),
-            IconButton(
-                onPressed: ()
-                {
-                  theme.changeThemeMode();
-                },
-                icon: const Icon(Icons.brightness_medium_outlined)
-            )
+                icon: const Icon(Icons.library_books_outlined)),
           ],
         ),
         body: p.pages[p.currentIndex],

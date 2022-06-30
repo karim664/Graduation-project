@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:signup_demo/component/local/book.dart';
 import 'package:signup_demo/providers/notifiers/favorites_notifier.dart';
@@ -39,9 +40,13 @@ class _FavoritesState extends State<Favorites> {
     var favorites = Provider.of<FavoritesNotifier>(context);
     return Scaffold(
         body:favorites.favoritesList.isEmpty
-            ? Center(
-          child: CircularProgressIndicator(
-            color:Theme.of(context).colorScheme.onSecondary,
+            ?  Center(
+          child: Text(
+            'You Have No favorites Books 😢',
+            style: GoogleFonts.robotoMono(
+              fontSize: 20,
+              color: Theme.of(context).colorScheme.onPrimary
+            ),
           ),
         ) :GridView.count(
             crossAxisCount: 2,

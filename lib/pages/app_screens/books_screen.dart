@@ -33,7 +33,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     BooksNotifier books = Provider.of<BooksNotifier>(context);
-    //StudentModel student = StudentModel();
     if (books.bookList.isEmpty) {
       return Center(
         child: CircularProgressIndicator(
@@ -52,7 +51,7 @@ class _HomeState extends State<Home> {
                   MaterialPageRoute(builder: (context) => const RequestsPage()),
                 );
               },
-              icon: const Icon(Icons.request_page))
+              icon: const Icon(Icons.library_books_outlined))
         ],
         floating: true,
       ),

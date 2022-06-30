@@ -20,6 +20,9 @@ ThemeData theme()
           )
       ),
       scaffoldBackgroundColor: const Color(0xffe6e6e6),
+      iconTheme: const IconThemeData(
+        color: Colors.black
+      ),
       textTheme: const TextTheme(
         bodyText1: TextStyle(
             fontSize: 14,
@@ -78,6 +81,9 @@ ThemeData darkTheme()
           )
       ),
       scaffoldBackgroundColor: const Color(0xff312C7E),
+      iconTheme: const IconThemeData(
+          color: Colors.white
+      ),
       textTheme: const TextTheme(
           bodyText1: TextStyle(
               fontSize: 14,

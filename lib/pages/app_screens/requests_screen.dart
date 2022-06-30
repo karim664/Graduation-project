@@ -48,8 +48,9 @@ Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
         body:request.requestsByNatId.isEmpty?Center(
           child: Text(
               'You Have No Requests Yet',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary
+            style: GoogleFonts.robotoMono(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.onPrimary
             ),
           ),
         ):ListView.separated(

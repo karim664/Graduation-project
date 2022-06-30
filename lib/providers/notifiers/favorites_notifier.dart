@@ -33,6 +33,7 @@ class FavoritesNotifier extends ChangeNotifier
 
   removeFromFavorites (int studentId , int bookId , BuildContext context)async{
     BooksNotifier booksNotifier = Provider.of<BooksNotifier>(context, listen: false);
+    booksNotifier.bookList = [];
     await FavoritesServices.deleteFavorites(studentId, bookId).then((value){
       if (value.statusCode == 200){
         getFavorites(studentId);

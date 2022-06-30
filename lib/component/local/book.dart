@@ -98,10 +98,8 @@ Widget bookItemBuilder(context, BookModel model, index,) {
                               splashRadius: 20,
                               onPressed: () {
                                 if(model.studentFavorites!.contains(logInInfo['studentId'])){
-                                  print('removed');
                                 favoriteNotifier.removeFromFavorites(logInInfo['studentId'], model.bookId! , context);
                                 }else {
-                                  print('added');
                                   favoriteNotifier.addToFavorites(logInInfo['studentId'], model.bookId! , context);
                                 }
 
@@ -110,7 +108,7 @@ Widget bookItemBuilder(context, BookModel model, index,) {
                                       ? 'Removed from favorites'
                                       : 'Added to favorites',
                                   ),
-                                  duration: const Duration(milliseconds: 1000) ,
+                                  duration: const Duration(milliseconds: 2000) ,
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
