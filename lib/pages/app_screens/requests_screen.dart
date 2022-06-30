@@ -116,12 +116,6 @@ class _RequestsPageState extends State<RequestsPage> {
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     Text(
-                      '${bookCategory['name']}',
-                      style: GoogleFonts.robotoMono(
-                          fontSize: 15,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                    ),
-                    Text(
                       requestModel.status == null
                           ? 'null'
                           : 'Status: ${requestModel.status}',

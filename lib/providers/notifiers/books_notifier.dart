@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:signup_demo/service/favorites_services.dart';
 import '../../models/book_model.dart';
