@@ -7,35 +7,34 @@ import '../../providers/AppProvider_provider.dart';
 import '../../providers/theme_provider.dart';
 
 class MainPage extends StatelessWidget {
-
   const MainPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    AppProvider p = Provider.of<AppProvider>(context,listen: true);
+    AppProvider p = Provider.of<AppProvider>(context, listen: true);
     ThemeProvider theme = Provider.of<ThemeProvider>(context, listen: true);
 
     return WillPopScope(
-      onWillPop: ()async => false,
+      onWillPop: () async => false,
       child: Scaffold(
         drawer: const NavigationDrawer(),
-        appBar: p.title[p.currentIndex] == 'Home' ? null
+        appBar: p.title[p.currentIndex] == 'Home'
+            ? null
             : AppBar(
-            title:Text(
-                p.title[p.currentIndex]
-            ),
-            automaticallyImplyLeading: true,
-          actions: [
-            IconButton(onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(
-                      builder: (context)
-                      => const RequestsPage()
-                  ),
-              );
-            },
-                icon: const Icon(Icons.library_books_outlined)),
-          ],
-        ),
+                title: Text(p.title[p.currentIndex]),
+                automaticallyImplyLeading: true,
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RequestsPage()),
+                        );
+                      },
+                      icon: const Icon(Icons.library_books_outlined)),
+                ],
+              ),
         body: p.pages[p.currentIndex],
         bottomNavigationBar: CurvedNavigationBar(
           onTap: (index) {
@@ -46,25 +45,25 @@ class MainPage extends StatelessWidget {
           buttonBackgroundColor: Theme.of(context).colorScheme.onBackground,
           backgroundColor: Theme.of(context).colorScheme.background,
           color: Theme.of(context).colorScheme.secondary,
-          animationDuration: const Duration(milliseconds: 700  ),
-          items:  [
-             Icon(
-               Icons.home,
-               color: Theme.of(context).colorScheme.onPrimary,
-               size: 35,
-             ),
-             Icon(
-               Icons.category,
-               color: Theme.of(context).colorScheme.onPrimary,
-                size: 35,
-             ),
-             Icon(
-               Icons.favorite,
-               color: Theme.of(context).colorScheme.onPrimary,
-               size: 35,
-             ),
+          animationDuration: const Duration(milliseconds: 700),
+          items: [
+            Icon(
+              Icons.home,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 35,
+            ),
+            Icon(
+              Icons.category,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 35,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 35,
+            ),
           ],
-          ),
+        ),
       ),
     );
   }

@@ -5,9 +5,11 @@ import '../../component/local/book.dart';
 import '../../providers/notifiers/books_notifier.dart';
 
 class BooksFromSubCategory extends StatefulWidget {
-  String? subName ;
-  int? id ;
-   BooksFromSubCategory({Key? key, this.subName, this.id}) : super(key: key);
+  String? subName;
+
+  int? id;
+
+  BooksFromSubCategory({Key? key, this.subName, this.id}) : super(key: key);
 
   @override
   State<BooksFromSubCategory> createState() => _BooksFromSubCategoryState();
@@ -24,12 +26,11 @@ class _BooksFromSubCategoryState extends State<BooksFromSubCategory> {
 
   @override
   void didChangeDependencies() {
-    if(!isSubLoaded)
-      {
-        BooksNotifier book = Provider.of<BooksNotifier>(context);
-        book.getBooksBySubId(widget.id!);
-        isSubLoaded = true;
-      }
+    if (!isSubLoaded) {
+      BooksNotifier book = Provider.of<BooksNotifier>(context);
+      book.getBooksBySubId(widget.id!);
+      isSubLoaded = true;
+    }
     super.didChangeDependencies();
   }
 
@@ -37,17 +38,14 @@ class _BooksFromSubCategoryState extends State<BooksFromSubCategory> {
   Widget build(BuildContext context) {
     BooksNotifier books = Provider.of<BooksNotifier>(context);
 
-    if(books.bookList.isEmpty)
-    {
+    if (books.bookList.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
     return Scaffold(
-      body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-         SliverAppBar(
+      body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
+        SliverAppBar(
           automaticallyImplyLeading: true,
           title: Text(widget.subName!),
           floating: true,
@@ -57,16 +55,15 @@ class _BooksFromSubCategoryState extends State<BooksFromSubCategory> {
           crossAxisSpacing: 1,
           mainAxisSpacing: 1,
           childAspectRatio: 1 / 1.04,
-          children: List.generate(books.bookListBySubID.length,
-                  (index) =>bookItemBuilder(
-                      context,
-                      books.bookList[index],
-                      index,
-                  )
-          ),
+          children: List.generate(
+              books.bookListBySubID.length,
+              (index) => bookItemBuilder(
+                    context,
+                    books.bookList[index],
+                    index,
+                  )),
         )
-      ]
-      ),
+      ]),
     );
   }
 }

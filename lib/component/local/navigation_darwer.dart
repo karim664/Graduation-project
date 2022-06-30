@@ -50,6 +50,7 @@ class NavigationDrawer extends StatelessWidget {
                   Text(
                       loggedUserinfo['fullName'],
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style: GoogleFonts.robotoMono(
                         fontSize: 20
                       ),
@@ -68,7 +69,8 @@ class NavigationDrawer extends StatelessWidget {
               children: [
                 Text(
                     'E-mail: ${loggedUserinfo['email']}',
-                    // overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: GoogleFonts.robotoMono(
                         fontSize: 16
                     )
@@ -79,6 +81,7 @@ class NavigationDrawer extends StatelessWidget {
                 Text(
                     'Address: ${loggedUserinfo['address']}',
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: GoogleFonts.robotoMono(
                         fontSize: 20
                     )
@@ -89,6 +92,7 @@ class NavigationDrawer extends StatelessWidget {
                 Text(
                     'phone Number: ${loggedUserinfo['phone']}',
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: GoogleFonts.robotoMono(
                         fontSize: 18
                     )

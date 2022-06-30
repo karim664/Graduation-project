@@ -7,26 +7,30 @@ import 'package:signup_demo/network/network_local/shared_pref.dart';
 import 'package:signup_demo/providers/notifiers/books_notifier.dart';
 import 'package:signup_demo/providers/notifiers/request_notifier.dart';
 
-
 class BookRequestScreen extends StatelessWidget {
-
   BookModel model;
 
   var info = jsonDecode(SharedPref.getString('loginUserDetail')!);
 
-  BookRequestScreen({Key? key, required this.model,}) : super(key: key);
+  BookRequestScreen({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return bookRequest(model, context);
   }
 
-  Widget bookRequest(BookModel model, context,)
-  {
+  Widget bookRequest(
+    BookModel model,
+    context,
+  ) {
     RequestNotifier request = Provider.of<RequestNotifier>(context);
     BooksNotifier book = Provider.of<BooksNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-        title:  Text('${model.title}'),
+        title: Text('${model.title}'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -37,13 +41,12 @@ class BookRequestScreen extends StatelessWidget {
             child: Container(
               width: double.infinity,
               height: 400,
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(
-                      image: AssetImage('assets/images/login.jpg'),
-                      fit: BoxFit.cover
-                  ),
-              color: Color(0xffd8e6db),
+                image: const DecorationImage(
+                    image: AssetImage('assets/images/login.jpg'),
+                    fit: BoxFit.cover),
+                color: Color(0xffd8e6db),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black,
@@ -61,20 +64,23 @@ class BookRequestScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                        'Book Name: ${model.title}',
+                      'Book Name: ${model.title}',
                       style: TextStyle(
-                        fontSize: 25,
-                        color: Theme.of(context).colorScheme.onPrimary
-                      ),
+                          fontSize: 25,
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
-                        model.authorsNames!.isEmpty? 'No Authors for This Book'
-                            :'Authors: ${model.authorsNames!.join(",")}',
-                      style: model.authorsNames!.isEmpty? const TextStyle(color: Colors.red)
-                      :  TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 25),
+                      model.authorsNames!.isEmpty
+                          ? 'No Authors for This Book'
+                          : 'Authors: ${model.authorsNames!.join(",")}',
+                      style: model.authorsNames!.isEmpty
+                          ? const TextStyle(color: Colors.red)
+                          : TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontSize: 25),
                     ),
                     const SizedBox(
                       height: 15,
@@ -83,29 +89,30 @@ class BookRequestScreen extends StatelessWidget {
                       'PublishedAt:  ${model.publishedYear}',
                       style: TextStyle(
                           fontSize: 25,
-                          color: Theme.of(context).colorScheme.onPrimary
-                      ),
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Text(
-                        'Category: ${model.subCategoryName}',
+                      'Category: ${model.subCategoryName}',
                       style: TextStyle(
                           fontSize: 25,
-                          color: Theme.of(context).colorScheme.onPrimary
-                      ),
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
-                     Text(
-                       model.availableQuantity == 0 ? 'Not Available'
-                         :'Available: ${model.availableQuantity}',
-                       style: model.availableQuantity == 0? const TextStyle(color: Colors.red)
-                           :  TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 25
-                       ),
-                     )
+                    Text(
+                      model.availableQuantity == 0
+                          ? 'Not Available'
+                          : 'Available: ${model.availableQuantity}',
+                      style: model.availableQuantity == 0
+                          ? const TextStyle(color: Colors.red)
+                          : TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontSize: 25),
+                    )
                   ],
                 ),
               ),
@@ -114,44 +121,37 @@ class BookRequestScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: defaultButton(
-                pressed: ()
-                {
-                  if(model.availableQuantity != 0)
-                    {
-                      request.postRequest(
-                        bookId: model.bookId,
-                        studentId: info['studentId'],
-                        context: context
-                      ).then((value)
-                      {
-                        if(value.body == 'Student already requested this book')
-                          {
-                            SnackBar snackBar =  const SnackBar(
-                                content: Text(
-                                    'Already Requested'
-                                )
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          }
-                        else {
-                          book.getBooks().then((value) {
-                            book.getBooks();
-                            Navigator.pop(context);
-                            SnackBar snackBar = SnackBar(content: Text(
-                                '${model.title} Requested Successfully'));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                snackBar);
-                          });
-                        } });
-                    }
-                  else
-                  {
-                    SnackBar snackBar = const SnackBar(content: Text('The Book is not available 😢'),);
+                pressed: () {
+                  if (model.availableQuantity != 0) {
+                    request
+                        .postRequest(
+                            bookId: model.bookId,
+                            studentId: info['studentId'],
+                            context: context)
+                        .then((value) {
+                      if (value.body == 'Student already requested this book') {
+                        SnackBar snackBar =
+                            const SnackBar(content: Text('Already Requested'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        book.getBooks().then((value) {
+                          book.getBooks();
+                          Navigator.pop(context);
+                          SnackBar snackBar = SnackBar(
+                              content: Text(
+                                  '${model.title} Requested Successfully'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        });
+                      }
+                    });
+                  } else {
+                    SnackBar snackBar = const SnackBar(
+                      content: Text('The Book is not available 😢'),
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-                }
-                ,title:'Request to borrow'
-            ),
+                },
+                title: 'Request to borrow'),
           ),
         ],
       ),

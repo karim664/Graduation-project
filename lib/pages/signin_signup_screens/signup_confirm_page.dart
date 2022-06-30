@@ -14,39 +14,42 @@ class ConfirmPage extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/login.jpg'),fit: BoxFit.cover
-              )
-          ),
+                  image: AssetImage('assets/images/login.jpg'),
+                  fit: BoxFit.cover)),
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  [
-                 Text(
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     'Done',
-                  style: GoogleFonts.robotoMono(
-                    fontSize: 60,
-                    fontWeight: FontWeight.bold,
+                    style: GoogleFonts.robotoMono(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                 Text(
+                  Text(
                     'Your request have been sent '
-                        'you will Receive an email'
-                        ' with the result Shortly',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.robotoMono(
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold,
+                    'you will Receive an email'
+                    ' with the result Shortly',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.robotoMono(
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                IconButton(
-                    onPressed: ()
-                    {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>  LoginScreen()));
-                    },
-                    icon: const Icon(Icons.arrow_back_ios)),
-              ],
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      icon: const Icon(Icons.arrow_back_ios)),
+                ],
+              ),
             ),
           ),
         ),

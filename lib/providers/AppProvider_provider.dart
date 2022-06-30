@@ -6,7 +6,6 @@ import '../pages/app_screens/categories_screen.dart';
 import '../pages/app_screens/favorites_screen.dart';
 import '../pages/app_screens/books_screen.dart';
 
-
 class AppProvider extends ChangeNotifier {
   BookModel book = BookModel();
   BookService bookService = BookService();
@@ -14,7 +13,8 @@ class AppProvider extends ChangeNotifier {
   List<bool> isSelected = [false, true];
   bool isDark = true;
   List<BookModel> favBooks = [];
-  bool isLogin = false ;
+  bool isLogin = false;
+
   List<Widget> pages = [const Home(), const Categories(), Favorites()];
   List<String> title = [
     'Home',
@@ -23,32 +23,34 @@ class AppProvider extends ChangeNotifier {
   ];
   int? myIndex;
 
-  int? getIndex(int index)
-  {
-    myIndex = index ;
-    return  myIndex;
+  int? getIndex(int index) {
+    myIndex = index;
+    return myIndex;
   }
 
-  Future getBookId(model)async
-  {
-   await BookService.getBookById(model.bookId!);
+  Future getBookId(model) async {
+    await BookService.getBookById(model.bookId!);
   }
 
   void changeFavorites() {
     notifyListeners();
   }
+
   void addToFavorites(value) {
     favBooks.add(value);
     notifyListeners();
   }
+
   void removeFromFavorites(value) {
     favBooks.remove(value);
     notifyListeners();
   }
+
   void botNavChange(index) {
     currentIndex = index;
     notifyListeners();
   }
+
   void toggleChange(index) {
     for (int i = 0; i < isSelected.length; i++) {
       if (index == i) {
@@ -63,7 +65,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   void logOutChangeState() {
-    isLogin = false ;
+    isLogin = false;
     SharedPref.setBoolean('login', isLogin);
   }
 }

@@ -28,14 +28,14 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController natIdController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     StudentNotifier student = Provider.of<StudentNotifier>(context);
     return Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/login.jpg'), fit: BoxFit.cover)),
+                image: AssetImage('assets/images/login.jpg'),
+                fit: BoxFit.cover)),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             resizeToAvoidBottomInset: true,
@@ -51,14 +51,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       const SizedBox(
                         height: 50.0,
                       ),
-                       Text(
-                        'Hello',
-                        style: GoogleFonts.robotoMono(
-                          fontSize: 50.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        )
-                      ),
+                      Text('Hello',
+                          style: GoogleFonts.robotoMono(
+                            fontSize: 50.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          )),
                       Row(
                         children: [
                           Expanded(
@@ -284,7 +282,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             if (formKey.currentState!.validate()) {
                               student
                                   .postStudent(
-                                      firstNameController.text + ' ' +lastNameController.text,
+                                      firstNameController.text +
+                                          ' ' +
+                                          lastNameController.text,
                                       phoneController.text,
                                       passwordController.text,
                                       natIdController.text,
@@ -296,15 +296,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                          const ConfirmPage()));
+                                              const ConfirmPage()));
                                   SnackBar snackBar = SnackBar(
-                                    duration: const Duration(milliseconds: 3000),
+                                      duration:
+                                          const Duration(milliseconds: 3000),
                                       content: Text(
                                           '${firstNameController.text} your data has been sent and being reviewed by the administrator please be patient'));
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
-                                }
-                                else if (value.statusCode == 400) {
+                                } else if (value.statusCode == 400) {
                                   SnackBar snackBar = const SnackBar(
                                       content: Text(
                                           'Your Email or National Id already existed'));
@@ -325,7 +325,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         children: [
                           const Text(
                             'Already having an account',
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                           TextButton(
                               onPressed: () {
@@ -336,7 +336,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               },
                               child: const Text(
                                 'sign in',
-                                style: TextStyle(color:Color(0xffE262F3)),
+                                style: TextStyle(color: Color(0xffE262F3)),
                               ))
                         ],
                       )

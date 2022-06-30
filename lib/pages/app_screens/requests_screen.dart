@@ -17,8 +17,9 @@ class RequestsPage extends StatefulWidget {
 }
 
 class _RequestsPageState extends State<RequestsPage> {
-bool isGetRequestLoaded = false ;
-Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
+  bool isGetRequestLoaded = false;
+
+  Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
 
   @override
   void initState() {
@@ -28,15 +29,14 @@ Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
 
   @override
   void didChangeDependencies() {
-    if(!isGetRequestLoaded)
-      {
-
-        RequestNotifier request = Provider.of<RequestNotifier>(context);
-        request.getRequestsByNatId('${logInInfo['nationalId']}');
-        isGetRequestLoaded = true;
-      }
+    if (!isGetRequestLoaded) {
+      RequestNotifier request = Provider.of<RequestNotifier>(context);
+      request.getRequestsByNatId('${logInInfo['nationalId']}');
+      isGetRequestLoaded = true;
+    }
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     RequestNotifier request = Provider.of<RequestNotifier>(context);
@@ -45,46 +45,47 @@ Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
         appBar: AppBar(
           title: const Text('Requests'),
         ),
-        body:request.requestsByNatId.isEmpty?Center(
-          child: Text(
-              'You Have No Requests Yet',
-            style: GoogleFonts.robotoMono(
-                fontSize: 20,
-                color: Theme.of(context).colorScheme.onPrimary
-            ),
-          ),
-        ):ListView.separated(
-            itemBuilder: (context, index) {
-               return ConditionalBuilder(
-                condition: request.requestsByNatId.isEmpty,
-                builder: (context)
-                {
-                  book.getBookCategoryByBookId(request.requests[index].bookId!);
-                  return const Center(child: Text('No Requests'));
+        body: request.requestsByNatId.isEmpty
+            ? Center(
+                child: Text(
+                  'You Have No Requests Yet',
+                  style: GoogleFonts.robotoMono(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
+              )
+            : ListView.separated(
+                itemBuilder: (context, index) {
+                  return ConditionalBuilder(
+                    condition: request.requestsByNatId.isEmpty,
+                    builder: (context) {
+                      book.getBookCategoryByBookId(
+                          request.requests[index].bookId!);
+                      return const Center(child: Text('No Requests'));
+                    },
+                    fallback: (context) {
+                      return requestItem(request.requestsByNatId[index],
+                          context, request, book.bookCategory);
+                    },
+                  );
                 },
-                fallback: (context)
-                {
-                  return requestItem(request.requestsByNatId[index], context, request, book.bookCategory);
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 4,
+                  );
                 },
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(
-                height: 4,
-              );
-            },
-            itemCount: request.requestsByNatId.length));
+                itemCount: request.requestsByNatId.length));
   }
 
-  Widget requestItem(RequestModel requestModel, context, RequestNotifier request, Map bookCategory) {
-  DateTime requestData = DateTime.parse(requestModel.requestDate!);
+  Widget requestItem(RequestModel requestModel, context,
+      RequestNotifier request, Map bookCategory) {
+    DateTime requestData = DateTime.parse(requestModel.requestDate!);
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-         color: Theme.of(context).colorScheme.primary
-        ),
+            borderRadius: BorderRadius.circular(15),
+            color: Theme.of(context).colorScheme.primary),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -107,19 +108,23 @@ Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      requestModel.bookTitle!.isEmpty ? 'null': requestModel.bookTitle!,
+                      requestModel.bookTitle!.isEmpty
+                          ? 'null'
+                          : requestModel.bookTitle!,
                       style: GoogleFonts.robotoMono(
                           fontSize: 15,
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
-                     Text(
+                    Text(
                       '${bookCategory['name']}',
                       style: GoogleFonts.robotoMono(
                           fontSize: 15,
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     Text(
-                      requestModel.status == null ? 'null' :  'Status: ${requestModel.status}',
+                      requestModel.status == null
+                          ? 'null'
+                          : 'Status: ${requestModel.status}',
                       style: GoogleFonts.robotoMono(
                           fontSize: 15,
                           color: Theme.of(context).colorScheme.onPrimary),
@@ -137,21 +142,21 @@ Map logInInfo = jsonDecode(SharedPref.getString('loginUserDetail')!);
                           color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     SizedBox(
-                        width: double.infinity,
-                        child: Container(
-                          child: defaultButton(
-                            pressed: ()
-                            {
-                              request.cancelRequest(requestModel.requestId!).then((value)
-                              {
-                                request.getRequestsByNatId('${logInInfo['nationalId']}');
-                              });
-                            },
-                            title:
-                              'Cancel Request',
-                            ),
-                          ),
-                        )
+                      width: double.infinity,
+                      child: Container(
+                        child: defaultButton(
+                          pressed: () {
+                            request
+                                .cancelRequest(requestModel.requestId!)
+                                .then((value) {
+                              request.getRequestsByNatId(
+                                  '${logInInfo['nationalId']}');
+                            });
+                          },
+                          title: 'Cancel Request',
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

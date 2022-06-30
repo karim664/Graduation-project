@@ -12,7 +12,6 @@ import '../app_screens/main_page.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -26,15 +25,17 @@ class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
   bool isPassword = false;
   LogInService login = LogInService();
+
   @override
   Widget build(BuildContext context) {
     LogInNotifier loginNotify = Provider.of<LogInNotifier>(context);
     return WillPopScope(
-      onWillPop: ()async => false,
+      onWillPop: () async => false,
       child: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/login.jpg'), fit: BoxFit.cover)),
+                image: AssetImage('assets/images/login.jpg'),
+                fit: BoxFit.cover)),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Padding(
@@ -59,76 +60,79 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 15.0,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Column(children: [
-                          defaultFormField(
-                              label: 'Email Address',
-                              keyboardType: TextInputType.emailAddress,
-                              controller: emailController,
-                              vali: (em) {
-                                if (!isEmail(em!)) {
-                                  return 'Enter a valid  Email Address';
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Column(children: [
+                            defaultFormField(
+                                label: 'Email Address',
+                                keyboardType: TextInputType.emailAddress,
+                                controller: emailController,
+                                vali: (em) {
+                                  if (!isEmail(em!)) {
+                                    return 'Enter a valid  Email Address';
+                                  }
+                                  if (em.isEmpty) {
+                                    return 'Enter Your Email Address ';
+                                  }
+                                  return null;
+                                },
+                                prefix: Icons.email_outlined),
+                            defaultFormField(
+                              label: 'Password',
+                              keyboardType: TextInputType.visiblePassword,
+                              controller: passwordController,
+                              vali: (ps) {
+                                if (ps!.isEmpty) {
+                                  return 'Enter your Password';
                                 }
-                                if (em.isEmpty) {
-                                  return 'Enter Your Email Address ';
+                                if (ps.length < 8) {
+                                  return 'Password is too short';
                                 }
                                 return null;
                               },
-                              prefix: Icons.email_outlined),
-                          defaultFormField(
-                            label: 'Password',
-                            keyboardType: TextInputType.visiblePassword,
-                            controller: passwordController,
-                            vali: (ps) {
-                              if (ps!.isEmpty) {
-                                return 'Enter your Password';
-                              }
-                              if (ps.length < 8) {
-                                return 'Password is too short';
-                              }
-                              return null;
-                            },
-                            prefix: Icons.lock,
-                            obsecure: !isPassword,
-                            sufix: isPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            sufixpressed: () {
-                              setState(() {
-                                isPassword = !isPassword;
-                              });
-                            },
-                          ),
-                          defaultButton(
-                              pressed: ()async  {
-                                if (formKey.currentState!.validate()) {
-                                  await loginNotify.postLogIn(
+                              prefix: Icons.lock,
+                              obsecure: !isPassword,
+                              sufix: isPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              sufixpressed: () {
+                                setState(() {
+                                  isPassword = !isPassword;
+                                });
+                              },
+                            ),
+                            defaultButton(
+                                pressed: () async {
+                                  if (formKey.currentState!.validate()) {
+                                    await loginNotify
+                                        .postLogIn(
                                       emailController.text,
                                       passwordController.text,
                                       context,
-                                      ).then((value)
-                                  {
-                                    Map jsonData = jsonDecode(value.body);
+                                    )
+                                        .then((value) {
+                                      Map jsonData = jsonDecode(value.body);
 
-                                    if(value.statusCode == 200)
-                                    {
-                                      Navigator.push(
-                                          context, MaterialPageRoute(builder: (context) => const MainPage()));
-                                      SnackBar snackBar = SnackBar(
-                                          content: Text('Welcome Back  ${jsonData['fullName']} '));
-                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                      loginNotify.logInChangeState();
-                                      loginNotify.saveStudentInfo(
-                                          emailController.text,
-                                          passwordController.text
-                                      );
-                                    }
-                                  });
-                                }
-                              },
-                              title: 'Sign in'),
-                        ])
-                      ),
+                                      if (value.statusCode == 200) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MainPage()));
+                                        SnackBar snackBar = SnackBar(
+                                            content: Text(
+                                                'Welcome Back  ${jsonData['fullName']} '));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        loginNotify.logInChangeState();
+                                        loginNotify.saveStudentInfo(
+                                            emailController.text,
+                                            passwordController.text);
+                                      }
+                                    });
+                                  }
+                                },
+                                title: 'Sign in'),
+                          ])),
                       const SizedBox(
                         height: 15.0,
                       ),
@@ -137,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           const Text(
                             'Don\'t have an account ',
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                           TextButton(
                               onPressed: () {
@@ -147,10 +151,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         builder: (context) =>
                                             const SignupScreen()));
                               },
-                              child: const Text('Signup',
-                              style: TextStyle(
-                                color:  Color(0xffE262F3)
-                              ),
+                              child: const Text(
+                                'Signup',
+                                style: TextStyle(color: Color(0xffE262F3)),
                               ))
                         ],
                       )
