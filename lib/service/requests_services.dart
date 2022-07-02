@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:signup_demo/models/post_request_model.dart';
-import 'package:signup_demo/models/request_model.dart';
 
 
 class RequestService

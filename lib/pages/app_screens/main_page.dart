@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:signup_demo/pages/app_screens/requests_screen.dart';
 import '../../component/local/navigation_darwer.dart';
 import '../../providers/AppProvider_provider.dart';
-import '../../providers/theme_provider.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,7 +11,6 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppProvider p = Provider.of<AppProvider>(context, listen: true);
-    ThemeProvider theme = Provider.of<ThemeProvider>(context, listen: true);
 
     return WillPopScope(
       onWillPop: () async => false,

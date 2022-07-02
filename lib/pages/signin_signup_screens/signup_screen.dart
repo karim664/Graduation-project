@@ -147,6 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             if (address.length < 4) {
                               return 'your address can\'t be less than 5 characters';
                             }
+                            return '' ;
                           },
                           keyboardType: TextInputType.streetAddress,
                           controller: addressController,

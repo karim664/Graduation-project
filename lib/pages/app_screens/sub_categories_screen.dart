@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:signup_demo/models/categories_model.dart';
-import 'package:signup_demo/models/subcategory_model.dart';
 import 'package:signup_demo/providers/notifiers/subcategory_notifier.dart';
 
 import 'books_from_sub_screen.dart';
