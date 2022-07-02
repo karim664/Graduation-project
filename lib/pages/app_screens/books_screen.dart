@@ -29,7 +29,6 @@ class _HomeState extends State<Home> {
     }
     super.didChangeDependencies();
   }
-
   @override
   Widget build(BuildContext context) {
     BooksNotifier books = Provider.of<BooksNotifier>(context);

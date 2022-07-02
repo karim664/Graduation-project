@@ -13,12 +13,13 @@ import 'package:signup_demo/providers/notifiers/login_notifier.dart';
 import 'package:signup_demo/providers/notifiers/request_notifier.dart';
 import 'package:signup_demo/providers/notifiers/subcategory_notifier.dart';
 import 'package:signup_demo/providers/theme_provider.dart';
+import 'package:signup_demo/service/requests_services.dart';
 import 'component/local/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPref.init();
-
+  await RequestService.updateStatus();
   runApp(
     MultiProvider(
       providers: [
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RequestNotifier request = Provider.of<RequestNotifier>(context);
     ThemeProvider themes = Provider.of<ThemeProvider>(context);
     return MaterialApp(
         debugShowCheckedModeBanner: false,

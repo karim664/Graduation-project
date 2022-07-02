@@ -36,6 +36,18 @@ class RequestService
     return response;
   }
 
+  static Future<http.Response> updateStatus()async {
+    {
+      Uri url = Uri.parse(
+          'https://libraryapiapp.azurewebsites.net/api/Request/refresh-status');
+      http.Response response = await http.get(
+        url,
+      );
+      print('update request status code: ${response.statusCode}');
+      print(response.body);
+      return response;
+    }
+  }
 
  static Future<http.Response> postRequest(
       {bookId, studentId})async

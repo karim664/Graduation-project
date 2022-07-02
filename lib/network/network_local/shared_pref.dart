@@ -1,6 +1,4 @@
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:signup_demo/providers/theme_provider.dart';
 
 class SharedPref {
   static SharedPreferences? sharedpref;

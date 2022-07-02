@@ -31,6 +31,12 @@ class RequestNotifier extends ChangeNotifier {
     return response;
   }
 
+  Future updateRequest()async
+  {
+    await RequestService.updateStatus();
+    notifyListeners();
+  }
+
   Future cancelRequest(int id) async {
     await RequestService.cancelRequest(id);
     notifyListeners();

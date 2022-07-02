@@ -84,6 +84,8 @@ class _CategoriesState extends State<Categories> {
           child: Center(
             child: Text(
               '${model.categoryName}',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   fontSize: 30,
                   backgroundColor: const Color(0xFF0E3311).withOpacity(0.5),
@@ -103,6 +105,12 @@ class _CategoriesState extends State<Categories> {
       return 'assets/images/physics.jpg';
     } else if (name == 'Arts' || name == 'arts') {
       return 'assets/images/arts.jpg';
+    }else if (name == 'Novels' || name == 'novels') {
+      return 'assets/images/novels.jpg';
+    }else if (name == 'Computer Science' || name == 'computer science') {
+      return 'assets/images/computer.jpg';
+    }else if (name == 'Mathematics' || name == 'mathematics' || name == 'Math' || name == 'math') {
+      return 'assets/images/math.jpg';
     }
 
     return 'assets/images/login.jpg';
